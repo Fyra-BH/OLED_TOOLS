@@ -1,0 +1,10 @@
+/.vscode
+/dist
+/build
+/__pycache__
+*.json
+*.bin
+*.spec
+# *.jpg
+*.spec
+# *.exe
