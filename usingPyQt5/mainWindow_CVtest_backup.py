@@ -15,6 +15,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import QtWidgets, QtCore
 import json
+import icos
 
 # flat 函数用于将多维list转为一维list
 def flat(l):
@@ -65,7 +66,7 @@ class Ui_Form(QWidget):
         self.horizontalLayout_2.addWidget(self.lineEdit_2)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.layoutWidget1 = QtWidgets.QWidget(Form)
-        self.layoutWidget1.setGeometry(QtCore.QRect(10, 90, 101, 80))
+        self.layoutWidget1.setGeometry(QtCore.QRect(10, 90, 101, 100))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget1)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -76,6 +77,9 @@ class Ui_Form(QWidget):
         self.lineEdit_3 = QtWidgets.QLineEdit(self.layoutWidget1)
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.verticalLayout_2.addWidget(self.lineEdit_3)
+        self.radioButton = QtWidgets.QRadioButton(self.layoutWidget1)
+        self.radioButton.setObjectName("radioButton")
+        self.verticalLayout_2.addWidget(self.radioButton)
         self.pushButton_3 = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButton_3.setObjectName("pushButton_3")
         self.verticalLayout_2.addWidget(self.pushButton_3)
@@ -91,6 +95,8 @@ class Ui_Form(QWidget):
         self.pushButton_2.setText(_translate("Form", "选择输出路径"))
         self.label.setText(_translate("Form", "采样间隔(帧)"))
         self.lineEdit_3.setText(_translate("Form", "1"))
+        self.radioButton.setText(_translate("Form", "是否取反"))
+
         self.pushButton_3.clicked.connect(self.run)
         self.pushButton.clicked.connect(self.load_video)
         self.pushButton_2.clicked.connect(self.output_setpath)
@@ -150,7 +156,10 @@ class Ui_Form(QWidget):
             ret, img_out = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
             point_map = list(flat(img_out.tolist()))
             for i in range(len(point_map)):
-                point_map[i] = 0 if point_map[i] == 0 else 1
+                if self.radioButton.isChecked():
+                    point_map[i] = 1 if point_map[i] == 0 else 0
+                else:
+                    point_map[i] = 0 if point_map[i] == 0 else 1
             bt_array = []
             for k in range(8):
                 for j in range(128):
