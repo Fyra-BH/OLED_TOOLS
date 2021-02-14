@@ -10,7 +10,7 @@
 
 
 
-**使用说明：** 使用前先修改settings.json文件，设置输入输出文件路径，然后直接运行bitmap_gen.py即可
+**使用说明：** 进入script目录，使用前先修改settings.json文件，设置输入输出文件路径，然后直接运行bitmap_gen.py即可
 
 
 
