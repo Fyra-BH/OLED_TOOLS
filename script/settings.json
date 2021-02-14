@@ -1,4 +1,4 @@
 {
-    "input file": "video/ba.mp4",
+    "input file": "../video/ba.mp4",
     "output file": "bitmap.bin"
 }
